@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev --host --port 3001",
+    "dev": "nuxt dev --port 3001 --host",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "test": "node tests/api.e2e.mjs"
