@@ -45,13 +45,14 @@ const rentalColumns = [
   { title: "借用時間", key: "borrowed_at", width: 170, render: (r) => fmt(r.borrowed_at) },
   { title: "歸還期限", key: "due_at", width: 170, render: (r) => fmt(r.due_at) },
   { title: "品項", key: "items", width: 320, render: (r) => r.items.map((i) => h(NTag, { size: "small", type: "info", bordered: false, style: "margin:2px 4px 2px 0" }, () => itemLabel(i))) },
+  { title: "簽名", key: "signature", width: 80, render: (r) => h(NButton, { size: "small", onClick: () => (signature.value = r.signature) }, () => "查看") },
+  // 狀態與歸還固定在右側，橫向捲動時也看得到
   {
-    title: "狀態", key: "status", width: 90,
+    title: "狀態", key: "status", width: 90, fixed: "right",
     render: (r) => h(NTag, { type: r.overdue ? "error" : r.status === "已歸還" ? "success" : "warning", bordered: false }, () => (r.overdue ? "逾期" : r.status)),
   },
-  { title: "簽名", key: "signature", width: 80, render: (r) => h(NButton, { size: "small", onClick: () => (signature.value = r.signature) }, () => "查看") },
   {
-    title: "操作", key: "actions", width: 120,
+    title: "操作", key: "actions", width: 120, fixed: "right",
     render: (r) => h(NButton, { size: "small", type: "primary", disabled: r.status === "已歸還", onClick: () => confirmReturn(r) }, () => (r.status === "已歸還" ? fmt(r.returned_at).slice(0, 10) : "歸還")),
   },
 ]
