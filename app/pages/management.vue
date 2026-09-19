@@ -44,7 +44,8 @@ const rentalColumns = [
   { title: "電話", key: "phone", width: 110 },
   { title: "借用時間", key: "borrowed_at", width: 170, render: (r) => fmt(r.borrowed_at) },
   { title: "歸還期限", key: "due_at", width: 170, render: (r) => fmt(r.due_at) },
-  { title: "品項", key: "items", width: 320, render: (r) => r.items.map((i) => h(NTag, { size: "small", type: "info", bordered: false, style: "margin:2px 4px 2px 0" }, () => itemLabel(i))) },
+  // 品項可能很多，這一欄允許換行，其他欄不換行
+  { title: "品項", key: "items", width: 360, className: "wrap", render: (r) => r.items.map((i) => h(NTag, { size: "small", type: "info", bordered: false, style: "margin:2px 4px 2px 0" }, () => itemLabel(i))) },
   { title: "簽名", key: "signature", width: 80, render: (r) => h(NButton, { size: "small", onClick: () => (signature.value = r.signature) }, () => "查看") },
   // 狀態與歸還固定在右側，橫向捲動時也看得到
   {
@@ -185,6 +186,8 @@ onMounted(async () => {
     font-size 0.9rem
   .n-data-table th, .n-data-table td
     white-space nowrap
+  .n-data-table td.wrap
+    white-space normal
   .n-data-table .n-button
     padding 0 12px
   .overdue td
