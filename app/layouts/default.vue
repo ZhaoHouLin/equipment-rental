@@ -35,7 +35,7 @@ NConfigProvider(:theme-overrides="themeOverrides" :locale="zhTW" :date-locale="d
 <style lang="stylus">
 .app
   min-height 100vh
-  flex(,stretch,column)
+  flex(flex-start,stretch,column)
   background linear-gradient(135deg, color_secondary, color_tertiary 60%)
 
 .topbar
