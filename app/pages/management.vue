@@ -35,25 +35,27 @@ const confirmReturn = (row) => {
   })
 }
 
+// 每欄固定寬度、不換行；表格總寬給 scroll-x，窄螢幕橫向捲動
 const rentalColumns = [
-  { title: "單號", key: "id", width: 70, sorter: "default" },
-  { title: "單位", key: "dept", width: 100 },
-  { title: "借用人", key: "name", width: 100 },
-  { title: "信箱", key: "email" },
-  { title: "電話", key: "phone", width: 100 },
-  { title: "借用時間", key: "borrowed_at", width: 160, render: (r) => fmt(r.borrowed_at) },
-  { title: "歸還期限", key: "due_at", width: 160, render: (r) => fmt(r.due_at) },
-  { title: "品項", key: "items", render: (r) => r.items.map((i) => h(NTag, { size: "small", type: "info", bordered: false, style: "margin:2px" }, () => itemLabel(i))) },
+  { title: "單號", key: "id", width: 80, sorter: "default" },
+  { title: "單位", key: "dept", width: 110 },
+  { title: "借用人", key: "name", width: 110 },
+  { title: "信箱", key: "email", width: 220 },
+  { title: "電話", key: "phone", width: 110 },
+  { title: "借用時間", key: "borrowed_at", width: 170, render: (r) => fmt(r.borrowed_at) },
+  { title: "歸還期限", key: "due_at", width: 170, render: (r) => fmt(r.due_at) },
+  { title: "品項", key: "items", width: 320, render: (r) => r.items.map((i) => h(NTag, { size: "small", type: "info", bordered: false, style: "margin:2px 4px 2px 0" }, () => itemLabel(i))) },
   {
     title: "狀態", key: "status", width: 90,
     render: (r) => h(NTag, { type: r.overdue ? "error" : r.status === "已歸還" ? "success" : "warning", bordered: false }, () => (r.overdue ? "逾期" : r.status)),
   },
-  { title: "簽名", key: "signature", width: 70, render: (r) => h(NButton, { size: "small", onClick: () => (signature.value = r.signature) }, () => "看") },
+  { title: "簽名", key: "signature", width: 80, render: (r) => h(NButton, { size: "small", onClick: () => (signature.value = r.signature) }, () => "查看") },
   {
-    title: "", key: "actions", width: 90,
+    title: "操作", key: "actions", width: 120,
     render: (r) => h(NButton, { size: "small", type: "primary", disabled: r.status === "已歸還", onClick: () => confirmReturn(r) }, () => (r.status === "已歸還" ? fmt(r.returned_at).slice(0, 10) : "歸還")),
   },
 ]
+const rentalWidth = rentalColumns.reduce((s, c) => s + c.width, 0)
 
 // 庫存
 const newItem = ref({ category: "", assetNo: "", name: "", kind: "unit", total: 1 })
@@ -138,7 +140,7 @@ onMounted(async () => {
           template(#unchecked) 全部
         NButton(size="small" @click="exportExcel") 匯出 Excel
         span.count 共 {{ rentalRows.length }} 筆，逾期 {{ admin.rentals.filter(r => r.overdue).length }} 筆
-      NDataTable(:columns="rentalColumns" :data="rentalRows" :row-key="r => r.id" :pagination="{ pageSize: 10 }" :scroll-x="1300" :row-class-name="r => r.overdue ? 'overdue' : ''")
+      NDataTable(:columns="rentalColumns" :data="rentalRows" :row-key="r => r.id" :pagination="{ pageSize: 10 }" :scroll-x="rentalWidth" :single-line="false" :row-class-name="r => r.overdue ? 'overdue' : ''")
     NTabPane(name="items" tab="庫存")
       NForm(inline label-placement="left" size="small" style="margin-bottom: 0.75rem; flex-wrap: wrap;")
         NFormItem(label="類別")
@@ -173,15 +175,22 @@ onMounted(async () => {
 
 <style lang="stylus">
 .management
-  size(1200px,auto)
-  max-width 100%
-  margin 0 auto
+  width 100%
   padding 1rem
   background-color #fff
   border-radius 1rem
   .count
     opacity 0.7
     font-size 0.9rem
+  .n-data-table th, .n-data-table td
+    white-space nowrap
+  .n-data-table .n-button
+    padding 0 12px
   .overdue td
     background-color rgba(255, 0, 76, 0.06)
+
+@media (max-width: 640px)
+  .management
+    padding 0.6rem
+    border-radius 0.6rem
 </style>

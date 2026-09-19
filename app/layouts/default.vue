@@ -35,6 +35,7 @@ NConfigProvider(:theme-overrides="themeOverrides" :locale="zhTW" :date-locale="d
 <style lang="stylus">
 .app
   min-height 100vh
+  overflow-x hidden
   flex(flex-start,stretch,column)
   background linear-gradient(135deg, color_secondary, color_tertiary 60%)
 
@@ -61,6 +62,30 @@ main
   flex 1
   flex(,flex-start)
   padding 1.5rem 1rem
+
+// 表單底部按鈕列：靠右、間距、按鈕左右留白
+.btn
+  flex(flex-end)
+  flex-wrap wrap
+  gap 0.6rem
+  margin-top 0.5rem
+  .n-button
+    padding 0 1.4rem
+
+.n-tag
+  padding 0 10px
+
+@media (max-width: 640px)
+  .topbar
+    padding 0.6rem 0.9rem
+    nav
+      gap 0.7rem
+      font-size 0.95rem
+  main
+    padding 1rem 0.6rem
+  .btn .n-button
+    flex 1
+    padding 0 0.8rem
 
 .page-enter-active,
 .page-leave-active

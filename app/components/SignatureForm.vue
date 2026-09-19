@@ -58,9 +58,9 @@ const submit = async () => {
   .pad
     VueSignaturePad(ref="pad" width="100%" height="220px")
   .btn
-    NButton(@click="form.prev") 上一步
-    NButton(@click="pad.clearSignature()") 清除
-    NButton(type="primary" :loading="sending" @click="submit") 確認送出
+    NButton(size="large" @click="form.prev") 上一步
+    NButton(size="large" @click="pad.clearSignature()") 清除
+    NButton(type="primary" size="large" :loading="sending" @click="submit") 確認送出
 </template>
 
 <style lang="stylus" scoped>
@@ -68,7 +68,4 @@ const submit = async () => {
   border 1px solid rgba(0,0,0,0.15)
   border-radius 0.5rem
   margin-bottom 1rem
-.btn
-  flex(flex-end)
-  gap 0.5rem
 </style>

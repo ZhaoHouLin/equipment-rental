@@ -59,3 +59,10 @@ HASH=$(node -e "console.log(require('bcryptjs').hashSync('test-password-123', 10
 NUXT_JWT_SECRET=x NUXT_ADMIN_PASSWORD_HASH="$HASH" NUXT_SEED_DEMO=1 NUXT_DB_PATH=./tmp/test.sqlite PORT=3095 node .output/server/index.mjs &
 node tests/api.e2e.mjs http://localhost:3095
 ```
+
+UI 走查（桌機 1280 與手機 390 兩種寬度，走完借用五步驟與管理頁四分頁，存截圖）：
+
+```bash
+npm i -D playwright-core          # 用電腦上已裝的 Chrome，不另下載瀏覽器
+mkdir -p shots && node tests/ui.e2e.mjs http://localhost:3095 ./shots
+```

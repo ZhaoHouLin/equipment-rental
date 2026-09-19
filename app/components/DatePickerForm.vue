@@ -14,14 +14,8 @@ const next = () => {
 <template lang="pug">
 NForm(label-placement="top")
   NFormItem(label="借用時間 → 預計歸還時間")
-    NDatePicker(v-model:value="form.model.range" type="datetimerange" start-placeholder="借用時間" end-placeholder="歸還時間" clearable)
+    NDatePicker(v-model:value="form.model.range" type="datetimerange" start-placeholder="借用時間" end-placeholder="歸還時間" clearable style="width: 100%")
   .btn
-    NButton(@click="form.prev") 上一步
-    NButton(type="primary" @click="next") 下一步
+    NButton(size="large" @click="form.prev") 上一步
+    NButton(type="primary" size="large" @click="next") 下一步
 </template>
-
-<style lang="stylus" scoped>
-.btn
-  flex(flex-end)
-  gap 0.5rem
-</style>

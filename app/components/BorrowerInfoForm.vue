@@ -4,6 +4,7 @@ import { NForm, NFormItem, NButton, NSelect, NInput, NAutoComplete, useMessage }
 const message = useMessage()
 const form = useFormStore()
 const catalog = useCatalogStore()
+const isMobile = useIsMobile()
 const formRef = ref(null)
 
 const deptOptions = computed(() => catalog.settings.departments.map((d) => ({ label: d, value: d })))
@@ -39,7 +40,7 @@ const next = (e) => {
 </script>
 
 <template lang="pug">
-NForm(ref="formRef" :model="form.model" :rules="rules" label-placement="left" :label-width="90")
+NForm(ref="formRef" :model="form.model" :rules="rules" :label-placement="isMobile ? 'top' : 'left'" :label-width="90")
   NFormItem(label="借用單位" path="dept")
     NSelect(v-model:value="form.model.dept" placeholder="請選擇單位" :options="deptOptions")
   NFormItem(label="借用人" path="name")
@@ -49,10 +50,5 @@ NForm(ref="formRef" :model="form.model" :rules="rules" label-placement="left" :l
   NFormItem(label="聯絡電話")
     NInput(v-model:value="form.model.phone" placeholder="分機或手機")
   .btn
-    NButton(type="primary" @click="next") 下一步
+    NButton(type="primary" size="large" @click="next") 下一步
 </template>
-
-<style lang="stylus" scoped>
-.btn
-  flex(flex-end)
-</style>
