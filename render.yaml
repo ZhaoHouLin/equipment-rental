@@ -1,0 +1,22 @@
+# Render Blueprint：demo 用。免費方案會休眠、磁碟不持久，重啟後資料庫回到示範資料。
+services:
+  - type: web
+    name: equipment-rental-demo
+    runtime: docker
+    branch: main
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    envVars:
+      - key: NUXT_JWT_SECRET
+        generateValue: true
+      - key: NUXT_AUTH_MODE
+        value: local
+      - key: NUXT_ADMIN_USER
+        value: admin
+      - key: NUXT_ADMIN_PASSWORD_HASH
+        sync: false
+      - key: NUXT_DB_PATH
+        value: /app/data/rental.sqlite
+      - key: NUXT_SEED_DEMO
+        value: "1"

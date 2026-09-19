@@ -1,0 +1,35 @@
+{
+  "name": "equipment-rental",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --host --port 3001",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "test": "node tests/api.e2e.mjs"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^1.0.2",
+    "bcryptjs": "^3.0.3",
+    "html5-qrcode": "^2.3.8",
+    "jsonwebtoken": "^9.0.3",
+    "ldapjs": "^3.0.7",
+    "naive-ui": "^2.45.3",
+    "nodemailer": "^10.0.10",
+    "nuxt": "^4.5.2",
+    "pinia": "^4.0.3",
+    "vue": "^3.5.43",
+    "vue-router": "^4.6.3",
+    "vue-signature-pad": "^3.0.2",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "pug": "^3.0.4",
+    "stylus": "^0.64.0"
+  }
+}

@@ -1,0 +1,34 @@
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+Data
+data/
+*.sqlite*
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# 憑證與私鑰：永遠不進 git
+*.key
+*.crt
+*.pem
+nginx/logs
+nginx/temp
