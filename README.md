@@ -66,3 +66,24 @@ UI 走查（桌機 1280 與手機 390 兩種寬度，走完借用五步驟與管
 npm i -D playwright-core          # 用電腦上已裝的 Chrome，不另下載瀏覽器
 mkdir -p shots && node tests/ui.e2e.mjs http://localhost:3095 ./shots
 ```
+
+## 通知信怎麼測
+
+不用真的寄出去。跑一個假的 SMTP 收件匣，系統寄到它，你在網頁上看信：
+
+```bash
+npx maildev --smtp 1025 --web 1080      # 收件匣網頁 http://localhost:1080
+```
+
+`.env` 加上 `NUXT_SMTP_HOST=localhost`、`NUXT_SMTP_PORT=1025`，重啟 `npm run dev`，借用一次、歸還一次，收件匣就會有兩封。
+自動化版本：`node tests/mail.e2e.mjs http://localhost:3095 http://localhost:1080`（8 項）。
+
+正式環境三種設定：
+
+| 情境 | 設定 |
+|---|---|
+| 公司內網轉信主機（不驗證） | `NUXT_SMTP_HOST`、`NUXT_SMTP_PORT=25` |
+| Microsoft 365 / Gmail | `NUXT_SMTP_PORT=587`、`NUXT_SMTP_USER`、`NUXT_SMTP_PASS`（Gmail 用應用程式密碼） |
+| 465 埠 TLS | `NUXT_SMTP_PORT=465` 或 `NUXT_SMTP_SECURE=true` |
+
+寄信失敗只會記在 server log，不會讓借用或歸還失敗。
